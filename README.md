@@ -1,24 +1,22 @@
-# README
+# postii (prototype)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a prototype for the Postii backend. 
+I wrote this project to explore and educate myself on rails and other Ruby web frameworks.
 
-Things you may want to cover:
+Author: Bach Tran.
 
-* Ruby version
+Copyright: MIT license.
 
-* System dependencies
+# Tech components
 
-* Configuration
+* Ruby version: 3.0.2
+* Rails: 6.1.4.1
+* Database: PostgreSQL
 
-* Database creation
+# Build
 
-* Database initialization
+* Development: `bin/rails start`
+* Console: `bin/rails console`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# API reference
+TBD.
