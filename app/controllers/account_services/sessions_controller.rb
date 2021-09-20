@@ -6,7 +6,7 @@ class AccountServices::SessionsController < ApplicationController
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
       render json: {
-        "msg": "OK!"
+        "msg": "Login successful!"
       }
     else
       render json: {

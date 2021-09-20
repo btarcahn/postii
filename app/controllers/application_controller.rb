@@ -1,13 +1,9 @@
 class ApplicationController < ActionController::API
-  include ActionController::HttpAuthentication, ActionController::StrongParameters
+  include ActionController::HttpAuthentication,
+          ActionController::StrongParameters,
+          AccountServices::Helpers
 
   before_action :set_current_user
-
-  def root_account_services
-    render json: {
-      "msg": 'Account services is ready!'
-    }
-  end
 
   def set_current_user
     Current.user = User.find_by(id: session[:user_id]) if session[:user_id]

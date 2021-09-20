@@ -1,9 +1,5 @@
 class CreatorsController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
-  TOKEN = "secret"
-
-  before_action :authenticate
+  before_action :require_login
 
   def index
     @creators = Creator.all
@@ -48,12 +44,5 @@ class CreatorsController < ApplicationController
   def index_basic_posters
     @creator = Creator.find(params[:creator_id])
     render json: @creator.basic_posters
-  end
-
-  private
-  def authenticate
-    authenticate_or_request_with_http_token do |token, options|
-      ActiveSupport::SecurityUtils.secure_compare(token, TOKEN)
-    end
   end
 end

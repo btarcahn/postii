@@ -29,3 +29,7 @@
 # Ignore text-editors and IDE histories
 /.idea/
 /.vscode/
+
+
+# Keeps all environment variabls secret
+*.env
