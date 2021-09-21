@@ -6,15 +6,21 @@ class BasicPostersController < ApplicationController
 
   def show
     @basic_poster = BasicPoster.find(params[:id])
+    unless @basic_posters
+      render json: CommonHelper.construct_error_message(
+        'ERR00003', ["Basic Poster with ID #{params[:id]}"])
+      return
+    end
     render json: @basic_poster
   end
 
   def create
     @creator = Creator.find(params[:creator_id])
-    render json: {
-      response_code: 404,
-      response_body: "#{params[:creator_id]} does not exist."
-    }, status: :not_found and return unless @creator
+    unless @creator
+      render json: CommonHelper.construct_error_message(
+        'ERR00003', ["Creator with ID #{params[:creator_id]}"]), status: :not_found
+      return
+    end
     @basic_poster = @creator.basic_posters.create(
       title: params[:title],
       description: params[:description],

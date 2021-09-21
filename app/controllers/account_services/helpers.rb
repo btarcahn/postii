@@ -25,7 +25,7 @@ module AccountServices::Helpers
 
   def require_login
     unless client_has_valid_token?
-      render json: {errors: ['Unauthorized to use this method.']},
+      render json: CommonHelper.construct_error_message('ERR00004'),
              status: :unauthorized
     end
   end

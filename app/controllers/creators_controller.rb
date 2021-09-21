@@ -23,22 +23,24 @@ class CreatorsController < ApplicationController
 
   def update
     @creator = Creator.find(params[:id])
+    unless @creator
+      render json: CommonHelper.construct_error_message(
+        'ERR00003', ["Creator with ID #{params[:id]}"]), status: :not_found
+      return
+    end
     @creator.update(params)
+    render json: CommonHelper.construct_error_message('MSG00001')
   end
 
   def destroy
     @creator = Creator.find(params[:id])
     unless @creator
-      render json: {
-        deleted: false,
-        content: "Creator not found!"
-      }, status: :not_found
+      render json: CommonHelper.construct_error_message(
+        'ERR0003', ["Creator with ID #{params[:id]}"])
+      return
     end
     @creator.destroy
-    render json: {
-      deleted: true,
-      content: @creator
-    }
+    render json: CommonHelper.construct_error_message('MSG00001')
   end
 
   def index_basic_posters
