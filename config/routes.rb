@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :creators do
       get 'basic_posters/', to: 'creators#index_basic_posters'
     end
+    resources :err_msgs, only: [:index, :show]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

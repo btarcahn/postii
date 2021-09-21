@@ -1,7 +1,10 @@
+require './lib/PostiiConstants'
+
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication,
           ActionController::StrongParameters,
-          AccountServices::Helpers
+          AccountServices::Helpers,
+          CommonHelper
 
   before_action :set_current_user
 

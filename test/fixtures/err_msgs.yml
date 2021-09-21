@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  err_code: 
+  message: 
+  component: 
+  additional_note: 
+
+two:
+  err_code: 
+  message: 
+  component: 
+  additional_note: 
