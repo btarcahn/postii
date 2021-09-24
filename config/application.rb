@@ -36,6 +36,7 @@ module Postii
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    Dotenv::Railtie.load
+
+    Dotenv::Railtie.load if Rails.env == 'development'
   end
 end
