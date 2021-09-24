@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_160203) do
+ActiveRecord::Schema.define(version: 2021_09_22_065817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,17 @@ ActiveRecord::Schema.define(version: 2021_09_20_160203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "quests", force: :cascade do |t|
+    t.string "quest_type"
+    t.boolean "mandatory"
+    t.string "question"
+    t.string "answer"
+    t.bigint "basic_poster_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["basic_poster_id"], name: "index_quests_on_basic_poster_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest"
@@ -55,4 +66,5 @@ ActiveRecord::Schema.define(version: 2021_09_20_160203) do
   end
 
   add_foreign_key "basic_posters", "creators"
+  add_foreign_key "quests", "basic_posters"
 end

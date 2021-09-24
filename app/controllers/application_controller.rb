@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   end
 
   def require_user_logged_in!
-    render json: {"msg": "You must be signed in!"},
+    render json: CommonHelper.construct_error_message('ERR00004'),
            status: :unauthorized if Current.user.nil?
   end
 end

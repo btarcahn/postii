@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quest_type: MyString
+  mandatory: false
+  question: MyString
+  answer: MyString
+  basic_poster: one
+
+two:
+  quest_type: MyString
+  mandatory: false
+  question: MyString
+  answer: MyString
+  basic_poster: two
