@@ -1,7 +1,38 @@
 require "test_helper"
 
 class ErrMsgsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @err_msg = err_msgs(:one)
+  end
+
+  test "should get index" do
+    get err_msgs_url, as: :json
+    assert_response :success
+  end
+
+  test "should create err_msg" do
+    assert_difference('ErrMsg.count') do
+      post err_msgs_url, params: { err_msg: {  } }, as: :json
+    end
+
+    assert_response 201
+  end
+
+  test "should show err_msg" do
+    get err_msg_url(@err_msg), as: :json
+    assert_response :success
+  end
+
+  test "should update err_msg" do
+    patch err_msg_url(@err_msg), params: { err_msg: {  } }, as: :json
+    assert_response 200
+  end
+
+  test "should destroy err_msg" do
+    assert_difference('ErrMsg.count', -1) do
+      delete err_msg_url(@err_msg), as: :json
+    end
+
+    assert_response 204
+  end
 end

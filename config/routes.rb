@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :err_msgs
+  resources :basic_posters
+  resources :creators
   namespace :account_services do
     get 'login/create'
   end
