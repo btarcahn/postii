@@ -1,4 +1,5 @@
 class BasicPostersController < ApplicationController
+  before_action :require_login
   before_action :set_basic_poster, only: %i[ show update destroy ]
 
   # GET /basic_posters
@@ -48,6 +49,9 @@ class BasicPostersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def basic_poster_params
-      params.fetch(:basic_poster, {})
+      params.require(:basic_poster)
+            .permit(:creator_id, :poster_id, :title,
+                    :description, :security_question, :security_answer,
+                    :passcode)
     end
 end

@@ -1,9 +1,13 @@
 class ErrMsgsController < ApplicationController
+  before_action :require_login, only: %i[ create update destroy ]
   before_action :set_err_msg, only: %i[ show update destroy ]
 
   # GET /err_msgs
   # GET /err_msgs.json
   def index
+
+
+
     @err_msgs = ErrMsg.all
   end
 
@@ -48,6 +52,7 @@ class ErrMsgsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def err_msg_params
-      params.fetch(:err_msg, {})
+      params.require(:err_msg).permit(
+        :err_code, :message, :reason, :component, :additional_note)
     end
 end

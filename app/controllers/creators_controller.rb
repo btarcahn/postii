@@ -49,6 +49,8 @@ class CreatorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def creator_params
-      params.fetch(:creator, {})
+      params.require(:creator).permit(
+      :creator_name, :email_address, :sector_code, :prefix_code
+      )
     end
 end

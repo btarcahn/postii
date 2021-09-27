@@ -1,6 +1,6 @@
 class AccountServices::LoginController < ApplicationController
   def new
-    render json: { errors: ["GET methods not allowed"] }, status: :method_not_allowed
+    render CommonHelper.construct_error_message('ERR00001', 'GET method'), status: :method_not_allowed
   end
 
   def create
@@ -9,7 +9,7 @@ class AccountServices::LoginController < ApplicationController
       session[:email] = user.email
       render json: { token: token(user.email), email: user.email }, status: :created
     else
-      render json: { errors: ['Invalid login credentials'] }, status: :unprocessable_entity
+      render json: CommonHelper.construct_error_message('ERR00006'), status: :unprocessable_entity
     end
   end
 

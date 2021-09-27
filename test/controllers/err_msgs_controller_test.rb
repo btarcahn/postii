@@ -12,7 +12,14 @@ class ErrMsgsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create err_msg" do
     assert_difference('ErrMsg.count') do
-      post err_msgs_url, params: { err_msg: {  } }, as: :json
+      post err_msgs_url, headers: { "Authorization" => @token },
+           params: { err_msg: {
+             err_code: "TEST0000",
+             message: "a test error message",
+             reason: "nothing went wrong",
+             component: 'core',
+             additional_note: 'nothing'
+           } }, as: :json
     end
 
     assert_response 201
