@@ -5,9 +5,6 @@ class ErrMsgsController < ApplicationController
   # GET /err_msgs
   # GET /err_msgs.json
   def index
-
-
-
     @err_msgs = ErrMsg.all
   end
 

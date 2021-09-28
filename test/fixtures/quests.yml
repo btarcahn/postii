@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  quest_type: MyString
-  mandatory: false
-  question: MyString
-  answer: MyString
+  quest_type: short
+  mandatory: true
+  question: Is this a test question?
+  answer: Yes, yes it is!
   basic_poster: one
 
 two:
-  quest_type: MyString
+  quest_type: short
   mandatory: false
-  question: MyString
-  answer: MyString
+  question: Is this another test question?
+  answer: Again, yes it is!
   basic_poster: two

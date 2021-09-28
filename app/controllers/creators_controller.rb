@@ -1,6 +1,6 @@
 class CreatorsController < ApplicationController
   before_action :require_login
-  before_action :set_creator, only: %i[ show update destroy ]
+  before_action :set_creator, only: %i[ show update destroy index_basic_posters ]
 
   # GET /creators
   # GET /creators.json
@@ -39,6 +39,10 @@ class CreatorsController < ApplicationController
   # DELETE /creators/1.json
   def destroy
     @creator.destroy
+  end
+
+  def index_basic_posters
+    render json: @creator.basic_posters
   end
 
   private

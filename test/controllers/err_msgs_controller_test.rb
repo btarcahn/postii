@@ -31,7 +31,11 @@ class ErrMsgsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update err_msg" do
-    patch err_msg_url(@err_msg), params: { err_msg: {  } }, as: :json
+    patch err_msg_url(@err_msg), params: { err_msg: {
+      err_code: "TEST0001",
+      message: "a test error message (updated)",
+      reason: "nothing went wrong (updated)"
+    } }, as: :json
     assert_response 200
   end
 

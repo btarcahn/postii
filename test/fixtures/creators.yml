@@ -3,9 +3,14 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  creator_name: Test Admin
+  email_address: test_admin@postii.com
+  sector_code: tes
+  prefix_code: adm
+
+two:
+  creator_name: Test Admin 2
+  email_address: test_admin2@postii.com
+  sector_code: tes
+  prefix_code: adm
