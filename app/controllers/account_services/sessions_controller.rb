@@ -9,9 +9,7 @@ class AccountServices::SessionsController < ApplicationController
         "msg": "Login successful!"
       }
     else
-      render json: {
-        "msg": "Invalid login credentials."
-      }, status: :unauthorized
+      render json: CommonHelper.construct_error_message('ERR00006'), status: :unprocessable_entity
     end
   end
 

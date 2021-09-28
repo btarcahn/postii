@@ -1,13 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  err_code: 
-  message: 
-  component: 
-  additional_note: 
-
+  err_code: ERR00001
+  message: is not allowed
+  reason: The system does not allow you to do this.
+  component: core
+  additional_note: added from fixtures
 two:
-  err_code: 
-  message: 
-  component: 
-  additional_note: 
+  err_code: ERR00002
+  message: is not implemented
+  reason: The accessed resource is not implemented.
+  component: core
+  additional_note: added from fixtures

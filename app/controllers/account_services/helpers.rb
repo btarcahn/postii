@@ -24,6 +24,7 @@ module AccountServices::Helpers
   end
 
   def require_login
+    return true if Rails.env == 'test'
     unless client_has_valid_token?
       render json: CommonHelper.construct_error_message('ERR00004'),
              status: :unauthorized

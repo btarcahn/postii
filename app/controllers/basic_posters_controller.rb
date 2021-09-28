@@ -1,62 +1,77 @@
 class BasicPostersController < ApplicationController
   before_action :require_login
-  before_action :set_basic_poster, only: [:show, :update, :destroy, :index_quests]
+  before_action :set_basic_poster, only: %i[ show update destroy index_quests create_quest ]
 
+  # GET /basic_posters
+  # GET /basic_posters.json
   def index
     @basic_posters = BasicPoster.all
-    render json: @basic_posters
   end
 
+  # GET /basic_posters/1
+  # GET /basic_posters/1.json
   def show
-    unless @basic_poster
-      render json: CommonHelper.construct_error_message(
-        'ERR00003', ["Basic Poster with ID #{params[:id]}"])
-      return
-    end
-    render json: @basic_poster
   end
 
+  # POST /basic_posters
+  # POST /basic_posters.json
+  def create
+    @basic_poster = BasicPoster.new(basic_poster_params)
+
+    if @basic_poster.save
+      render :show, status: :created, location: @basic_poster
+    else
+      render json: @basic_poster.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /basic_posters/1
+  # PATCH/PUT /basic_posters/1.json
   def update
     if @basic_poster.update(basic_poster_params)
-      render json: @basic_poster, status: :ok
+      render :show, status: :ok, location: @basic_poster
     else
-      render json: CommonHelper.construct_error_message('ERR00003', ["Poster with id: #{params[:id]}"])
+      render json: @basic_poster.errors, status: :unprocessable_entity
     end
   end
 
-  def create
-    @creator = Creator.find(params[:creator_id])
-    unless @creator
-      render json: CommonHelper.construct_error_message(
-        'ERR00003', ["Creator with ID #{params[:creator_id]}"]), status: :not_found
-      return
-    end
-    @basic_poster = @creator.basic_posters.create(
-      title: params[:title],
-      description: params[:description],
-      security_question: params[:security_question],
-      security_answer: params[:security_answer],
-      passcode: params[:passcode]
-    )
-    render json: @basic_poster
-  end
-
+  # DELETE /basic_posters/1
+  # DELETE /basic_posters/1.json
   def destroy
     @basic_poster.destroy
-    render json: CommonHelper.construct_error_message('MSG00001')
   end
 
   def index_quests
     render json: @basic_poster.quests
   end
 
-  private
-  def set_basic_poster
-    @basic_poster = BasicPoster.find(params[:id])
+  def create_quest
+    quest = @basic_poster.quests.create(
+      quest_type: quest_params[:quest_type], mandatory: quest_params[:mandatory],
+      question: quest_params[:question], answer: quest_params[:answer])
+
+    if quest
+      render quest, status: :ok, location: quest
+    else
+      render json: quest.errors, status: :unprocessable_entity
+    end
   end
 
-  def basic_poster_params
-    params.require(:basic_poster).permit(
-      :title, :description, :security_question, :security_answer, :creator_id)
-  end
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_basic_poster
+      @basic_poster = BasicPoster.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def basic_poster_params
+      params.require(:basic_poster)
+            .permit(:creator_id, :poster_id, :title,
+                    :description, :security_question, :security_answer,
+                    :passcode)
+    end
+
+    def quest_params
+      params.require(:quest).permit(:quest_type, :mandatory, :question, :answer)
+    end
 end

@@ -32,6 +32,11 @@ module PostiiConstants
       'reason': 'The requested entity is not available/ can\'t be found.'
     },
 
+    'ERR00006': {
+      'message': 'Invalid login credentials',
+      'reason': 'You have provided the wrong username or password.'
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',

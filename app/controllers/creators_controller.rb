@@ -1,50 +1,60 @@
 class CreatorsController < ApplicationController
   before_action :require_login
+  before_action :set_creator, only: %i[ show update destroy index_basic_posters ]
 
+  # GET /creators
+  # GET /creators.json
   def index
     @creators = Creator.all
-    render json: @creators
   end
 
+  # GET /creators/1
+  # GET /creators/1.json
   def show
-    @creator = Creator.find(params[:id])
-    render json: @creator
   end
 
+  # POST /creators
+  # POST /creators.json
   def create
-    @creator = Creator.create(
-      creator_name: params[:creator_name],
-      email_address: params[:email_address],
-      sector_code: params[:sector_code],
-      prefix_code: params[:prefix_code],
-    )
-    render json: @creator
+    @creator = Creator.new(creator_params)
+
+    if @creator.save
+      render :show, status: :created, location: @creator
+    else
+      render json: @creator.errors, status: :unprocessable_entity
+    end
   end
 
+  # PATCH/PUT /creators/1
+  # PATCH/PUT /creators/1.json
   def update
-    @creator = Creator.find(params[:id])
-    unless @creator
-      render json: CommonHelper.construct_error_message(
-        'ERR00003', ["Creator with ID #{params[:id]}"]), status: :not_found
-      return
+    if @creator.update(creator_params)
+      render :show, status: :ok, location: @creator
+    else
+      render json: @creator.errors, status: :unprocessable_entity
     end
-    @creator.update(params)
-    render json: CommonHelper.construct_error_message('MSG00001')
   end
 
+  # DELETE /creators/1
+  # DELETE /creators/1.json
   def destroy
-    @creator = Creator.find(params[:id])
-    unless @creator
-      render json: CommonHelper.construct_error_message(
-        'ERR0003', ["Creator with ID #{params[:id]}"])
-      return
-    end
     @creator.destroy
-    render json: CommonHelper.construct_error_message('MSG00001')
   end
 
   def index_basic_posters
-    @creator = Creator.find(params[:creator_id])
     render json: @creator.basic_posters
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_creator
+      @creator = Creator.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def creator_params
+      params.require(:creator).permit(
+      :creator_name, :email_address, :sector_code, :prefix_code
+      )
+    end
 end

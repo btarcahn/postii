@@ -4,8 +4,19 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
+one:
+  poster_id: TES0123456
+  title: a test poster
+  description: just a test poster
+  security_question: where is Vietnam?
+  security_answer: in Southeast Asia.
+  passcode: 1234
+
+two:
+  poster_id: r_12345
+  title: another test poster
+  description: just another test poster
+  security_question: idk what to ask...
+  security_answer: idk what to answer too!!
+  passcode: 4331
 # column: value
