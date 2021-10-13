@@ -1,0 +1,10 @@
+{
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": ["bundle install", "bin/rails db:seed_err_msg"],
+        "test": "bin/rails test"
+      }
+    }
+  }
+}

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+
   namespace :account_services do
     get 'login/create'
   end
   acc_svc_dir = 'account_services/'
-  api_v1 = 'api/v1/'
+  api_v1 = '/api/v1'
+
   scope '/auth' do
     get 'sign_up', to: "#{acc_svc_dir}registrations#new"
     get 'sign_up/exists', to: "#{acc_svc_dir}registrations#exists"
@@ -25,7 +27,7 @@ Rails.application.routes.draw do
   resources :basic_posters, path: "#{api_v1}basic_posters"
   scope api_v1 do
 
-    # resources :err_msgs, :as => "api_v1_err_msgs"
+    root "application#get_hello"
 
     get 'creators/:id/basic_posters', to: 'creators#index_basic_posters'
     get 'basic_posters/:id/quests', to: 'basic_posters#index_quests'
