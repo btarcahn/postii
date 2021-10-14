@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
-  include ActionController::HttpAuthentication,
-          ActionController::StrongParameters,
+  include ActionController::StrongParameters,
           AccountServices::Helpers,
           CommonHelper
 

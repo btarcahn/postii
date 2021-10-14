@@ -1,6 +1,6 @@
 class QuestsController < ApplicationController
   before_action :set_quest, only: %i[ show update destroy ]
-  before_action :require_login
+  before_action :authenticate_user!
 
   # GET /quests
   # GET /quests.json

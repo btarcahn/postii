@@ -29,6 +29,6 @@
 
 roles = [{name: "admin", component: "core"},
          {name: "user", component: "core"}]
-if Role.count > 0
+unless Role.count > 0
   roles.each {|role| Role.create(name: role[:name], component: role[:component])}
 end
