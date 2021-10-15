@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users, path: 'auth'
+  devise_for :users, path: 'auth',
+             controllers: {
+               sessions: 'account_services/sessions',
+               registrations: 'account_services/registrations'
+             }
   namespace :account_services do
     get 'login/create'
   end

@@ -42,10 +42,20 @@ module PostiiConstants
       'reason': 'This record already exists in database, cannot create a new one due to uniqueness.'
     },
 
+    'ERR00008': {
+      'message': "%s failed",
+      'reason': 'The invoked action has failed.'
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',
       'reason': 'The resource has been executed successfully.'
+    },
+
+    'MSG00002': {
+      'message': '%s succeed',
+      'reason': 'The invoked action has been successful.'
     }
   }
 end
