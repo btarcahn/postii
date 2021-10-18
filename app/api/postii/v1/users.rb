@@ -3,7 +3,7 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
-    helpers Devise::Controller::Helpers
+    helpers Devise::Controllers::Helpers
 
     before { authenticate_user! }
 
