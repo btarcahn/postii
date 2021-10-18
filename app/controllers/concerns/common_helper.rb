@@ -1,19 +1,19 @@
-module Postii::Common::Helpers
+module CommonHelper
   extend ActiveSupport::Concern
 
-  def Helpers.error!(code, args=[], custom_message=nil)
-    pulled_message = ErrMsg.find_by(err_code: code)[:message]
+  # Constructs a message hash of structure: {code: code, message: message}
+  def message!(code, args=[], custom_message=nil)
+    if custom_message.present?
+      return {code: '', message: custom_message}
+    end
 
-    message = if custom_message.present?
-                custom_message
-              else
-                pulled_message.present? ? pulled_message : 'Can\'t find a corresponding message, please contact admin.'
-              end
-    n_args_expected = Helpers.count_formatter(message)
+    message = ErrMsg.exists?(err_code: code) ? ErrMsg.find_by_err_code(code)[:message] :
+                "Can't find message with code #{code}. Please contact admin."
+    n_args_expected = count_formatter(message)
     n_args_actual = args ? args.size : 0
     raise ArgumentError.new(
-            "Wrong number of args: expected #{n_args_expected} but received #{n_args_actual} in args. Raw message: \"#{message}\"."
-          ) unless n_args_expected == n_args_actual
+      "Wrong number of args: expected #{n_args_expected} but received #{n_args_actual} in args. Raw message: \"#{message}\"."
+    ) unless n_args_expected == n_args_actual
     {
       code: code,
       message: message % args
@@ -21,7 +21,7 @@ module Postii::Common::Helpers
   end
 
   private
-  def Helpers.count_formatter(string)
+  def count_formatter(string)
     string.scan(/%([csiguxo]|[1-9]?d|[0-9]?+(.[1-9])?[fe])/).size
   end
 end
