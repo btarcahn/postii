@@ -1,3 +1,3 @@
-class SuperUser < User
-  
+class SuperUser < Admin
+
 end
