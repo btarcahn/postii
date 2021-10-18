@@ -3,6 +3,10 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
+    helpers Devise::Controllers::Helpers
+
+    before { authenticate_user! }
+
     resource :basic_posters do
       desc 'Returns a list of quests of this a specific basic poster.'
       params do

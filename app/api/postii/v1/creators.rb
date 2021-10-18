@@ -3,6 +3,10 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
+    helpers Devise::Controller::Helpers
+
+    before { authenticate_user! }
+
     resource :creators do
       desc 'View BasicPosters of a creator'
       params do

@@ -3,6 +3,10 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
+    helpers Devise::Controller::Helpers
+
+    before { authenticate_user! }
+
     resource :users do
       desc 'Return a list of users'
       get do
