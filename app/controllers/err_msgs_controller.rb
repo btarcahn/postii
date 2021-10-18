@@ -1,5 +1,5 @@
 class ErrMsgsController < ApplicationController
-  before_action :require_login, only: %i[ create update destroy ]
+  before_action :authenticate_user!
   before_action :set_err_msg, only: %i[ show update destroy ]
 
   # GET /err_msgs
