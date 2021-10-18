@@ -12,7 +12,11 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+# Use this for JSON Web Token
 gem 'jwt'
+# Use Grape API
+gem 'grape'
+gem 'grape-entity'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -36,6 +40,8 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # See Grape API routes just like rails routes
+  gem 'grape_on_rails_routes'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
