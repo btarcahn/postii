@@ -1,0 +1,11 @@
+language: ruby
+
+script:
+  - if [ "$TRAVIS_BRANCH" = "development" ]; then bin/rails s -e development
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then bin/rails s -e production
+  - if [ "$TRAVIS_BRANCH" = "test" ]; then bin/rails s -e test
+
+branches:
+  only:
+    - master
+    - development
