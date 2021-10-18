@@ -1,5 +1,4 @@
 class CreatorsController < ApplicationController
-  before_action :require_login
   before_action :set_creator, only: %i[ show update destroy index_basic_posters ]
 
   # GET /creators

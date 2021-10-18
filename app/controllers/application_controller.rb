@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication,
           ActionController::StrongParameters,
-          AccountServices::Helpers,
           CommonHelper
 
   def get_hello
