@@ -1,4 +1,5 @@
 class QuestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_quest, only: %i[ show update destroy ]
 
   # GET /quests
