@@ -1,5 +1,9 @@
 language: ruby
 
+script:
+  - bin/rails db:migrate RAILS_ENV=test
+  - bin/rails t
+
 branches:
   only:
     - master
