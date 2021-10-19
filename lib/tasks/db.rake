@@ -1,18 +1,31 @@
 require './lib/PostiiConstants'
 
 namespace :db do
-  desc "add default error messages to the database"
-  task :seed_err_msg, [:drop_table] => :environment do |t, args|
-    if %w[drop_table reset].include? args[:drop_table]
-      ErrMsg.delete_all
+  namespace :seed do
+    desc "Seeds the error messages (alerts) to the database"
+    task :alerts, [:drop_table] => :environment do |t, args|
+      table_name = 'err_msgs'
+      if %w[drop drop_table reset].include? args[:drop_table]
+        puts "This will truncate table '#{table_name}', and it works for PostgreSQL only!"
+        ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY")
+        puts "'#{table_name}' was truncated."
+      end
+      PostiiConstants::COMMON_ERRORS.each do |err_code, value|
+        ErrMsg.create err_code: err_code,
+                      message: value[:message],
+                      reason: value[:reason],
+                      component: 'core',
+                      additional_note: 'created with rails db:seed:alerts'
+      end
+      puts "Added #{PostiiConstants::COMMON_ERRORS.count} to '#{table_name}'."
     end
-    PostiiConstants::COMMON_ERRORS.each do |err_code, value|
-      ErrMsg.create err_code: err_code,
-                    message: value[:message],
-                    reason: value[:reason],
-                    component: 'core',
-                    additional_note: 'created with rails db:seed_err_msg'
+
+    desc "Create a superuser to the database"
+    task :create_super_user, [:email, :password] => :environment do |t, args|
+      return puts 'Email or password required.' unless args[:email].present? && args[:password].present?
+      return puts "#{args[:email]} is taken, try another one." if User.exists?(email: args[:email])
+      SuperUser.create!(email: args[:email], password: args[:password])
+      puts "Created superuser #{args[:email]}."
     end
   end
-
 end

@@ -27,7 +27,8 @@ class ActiveSupport::TestCase
     response.body['token']
   end
 
-  def setup_test_environment
-    Rake::Task['db:seed_err_msg'].invoke if ErrMsg.count <= 1
+  def seed_test_database
+    Rake::Task['db:seed:alerts[drop]'].invoke
+    Rake::Task['db:seed:create_super_user[admin@postii.com, Hello@123]'].invoke
   end
 end

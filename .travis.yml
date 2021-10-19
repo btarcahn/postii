@@ -1,9 +1,5 @@
 language: ruby
 
-script:
-
-  bin/rails s -e development
-
 branches:
   only:
     - master
