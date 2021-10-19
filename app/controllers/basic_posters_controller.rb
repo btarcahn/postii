@@ -1,5 +1,5 @@
 class BasicPostersController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
   before_action :set_basic_poster, only: %i[ show update destroy index_quests create_quest ]
 
   # GET /basic_posters

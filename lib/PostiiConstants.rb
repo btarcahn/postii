@@ -37,6 +37,11 @@ module PostiiConstants
       'reason': 'You have provided the wrong username or password.'
     },
 
+    'ERR00007': {
+      'message': '%s already exists',
+      'reason': 'This record already exists in database, cannot create a new one due to uniqueness.'
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',
