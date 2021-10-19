@@ -1,5 +1,9 @@
 # postii (prototype)
 
+master: [![Build Status](https://app.travis-ci.com/btarcahn/postii.svg?branch=master)](https://app.travis-ci.com/btarcahn/postii)
+
+development: [![Build Status](https://app.travis-ci.com/btarcahn/postii.svg?branch=development)](https://app.travis-ci.com/btarcahn/postii)
+
 **postii** is thought to be an application that supports create, fill, and submit
 forms and surveys with ease. It's quite similar to Google Forms or Survey Monkey,
 but you can retrieve what you've submitted by a tracking code, or revoke your 
