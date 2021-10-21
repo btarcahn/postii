@@ -3,9 +3,9 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
-    helpers Devise::Controllers::Helpers
+    helpers Devise::Controllers::Helpers, RolesManager
 
-    before { authenticate_user! }
+    before { authenticate_super_user! }
 
     resource :users do
       desc 'Return a list of users'

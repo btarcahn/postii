@@ -47,6 +47,11 @@ module PostiiConstants
       'reason': "The parameters supplied is correct but it can't be handled in the database."
     },
 
+    'ERR00009': {
+      'message': 'Insufficient authority',
+      'reason': "Your account doesn't have enough permission to access this resource."
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',
