@@ -42,6 +42,11 @@ module PostiiConstants
       'reason': 'This record already exists in database, cannot create a new one due to uniqueness.'
     },
 
+    'ERR00008': {
+      'message': "The request is correct, but something went wrong so we can't process your request",
+      'reason': "The parameters supplied is correct but it can't be handled in the database."
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',
