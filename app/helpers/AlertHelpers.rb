@@ -1,4 +1,4 @@
-module CommonHelper
+module AlertHelpers
   extend ActiveSupport::Concern
 
   # Constructs a message hash of structure: {code: code, message: message}
@@ -21,7 +21,9 @@ module CommonHelper
   end
 
   private
+  # Count the number of formatters, e.g. %s %d %f in a given string
   def count_formatter(string)
     string.scan(/%([csiguxo]|[1-9]?d|[0-9]?+(.[1-9])?[fe])/).size
   end
+
 end
