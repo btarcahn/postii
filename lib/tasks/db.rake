@@ -1,5 +1,3 @@
-require './lib/PostiiConstants'
-
 namespace :db do
   namespace :seed do
     desc "Seeds the error messages (alerts) to the database"
@@ -10,14 +8,14 @@ namespace :db do
         ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY")
         puts "'#{table_name}' was truncated."
       end
-      PostiiConstants::COMMON_ERRORS.each do |err_code, value|
+      AlertHelpers::ALERTS.each do |err_code, value|
         ErrMsg.create err_code: err_code,
                       message: value[:message],
                       reason: value[:reason],
                       component: 'core',
                       additional_note: 'created with rails db:seed:alerts'
       end
-      puts "Added #{PostiiConstants::COMMON_ERRORS.count} to '#{table_name}'."
+      puts "Added #{AlertHelpers::ALERTS.count} to '#{table_name}'."
     end
 
     desc "Create a superuser to the database"
