@@ -35,4 +35,5 @@ class PostiiAPI < Grape::API
   mount Postii::V1::Alerts
   mount Postii::V1::BasicPosters
   mount Postii::V1::Creators
+  mount Postii::V1::ElevationRequests
 end

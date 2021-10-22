@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_18_141259) do
+ActiveRecord::Schema.define(version: 2021_10_22_023440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,21 @@ ActiveRecord::Schema.define(version: 2021_10_18_141259) do
     t.string "prefix_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "elevation_requests", force: :cascade do |t|
+    t.bigint "creator_id", null: false
+    t.integer "status", null: false
+    t.bigint "created_by_id", null: false
+    t.bigint "target_id", null: false
+    t.bigint "answered_by_id"
+    t.datetime "due_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["answered_by_id"], name: "index_elevation_requests_on_answered_by_id"
+    t.index ["created_by_id"], name: "index_elevation_requests_on_created_by_id"
+    t.index ["creator_id"], name: "index_elevation_requests_on_creator_id"
+    t.index ["target_id"], name: "index_elevation_requests_on_target_id"
   end
 
   create_table "err_msgs", force: :cascade do |t|
@@ -74,5 +89,9 @@ ActiveRecord::Schema.define(version: 2021_10_18_141259) do
   end
 
   add_foreign_key "basic_posters", "creators"
+  add_foreign_key "elevation_requests", "creators"
+  add_foreign_key "elevation_requests", "users", column: "answered_by_id"
+  add_foreign_key "elevation_requests", "users", column: "created_by_id"
+  add_foreign_key "elevation_requests", "users", column: "target_id"
   add_foreign_key "quests", "basic_posters"
 end
