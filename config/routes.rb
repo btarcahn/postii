@@ -11,7 +11,7 @@ Rails.application.routes.draw do
              }
 
 
-  scope '/api/v1' do
+  scope '/superuser' do
     resources :err_msgs, :quests, :creators, :basic_posters
   end
 

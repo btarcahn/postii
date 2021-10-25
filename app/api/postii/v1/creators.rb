@@ -3,16 +3,32 @@ module Postii::V1
     version 'v1', using: :path
     format :json
 
-    helpers Devise::Controllers::Helpers
+    helpers Devise::Controllers::Helpers, RolesManager
 
-    before { authenticate_user! }
 
     resource :creators do
+
+      desc 'View Creators (public)'
+      get '/' do
+        @response = Creator.all
+        present @response
+      end
+
+      desc 'View a Creator by ID (public)'
+      params do
+        requires :id, type: Integer
+      end
+      get '/:id' do
+        @response = Creator.find(params[:id])
+        present @response
+      end
+
       desc 'View BasicPosters of a creator'
       params do
         requires :id, type: String
       end
       get '/:id/basic_posters' do
+        authenticate_super_user!
         creator = Creator.find(params[:id])
         basic_posters = creator.basic_posters
         present basic_posters
@@ -29,6 +45,7 @@ module Postii::V1
         optional :passcode, type: String
       end
       post '/:id/basic_posters' do
+        authenticate_super_user!
         creator = Creator.find(params[:id])
         basic_poster = creator.basic_posters.create(
           poster_id: params[:poster_id],
@@ -51,6 +68,7 @@ module Postii::V1
       end
 
       post '/query' do
+        authenticate_super_user!
         if params[:creator_name].present?
           creators = Creator.where('name LIKE ?', "%#{params[:creator_name]}%")
           present creators

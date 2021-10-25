@@ -1,5 +1,5 @@
 class CreatorsController < ApplicationController
-  before_action :authenticate_admin!
+  before_action :authenticate_super_user!
   before_action :set_creator, only: %i[ show update destroy index_basic_posters ]
 
   # GET /creators
