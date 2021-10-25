@@ -68,6 +68,11 @@ module AlertHelpers
       'reason': "Your account doesn't have enough permission to access this resource."
     },
 
+    'ERR00010': {
+      'message': "Insufficient authority, must be at least %s to proceed",
+      'reason': "Your account doesn't have enough permission to access this resource."
+    },
+
     # Messages
     'MSG00001': {
       'message': 'Completed!',

@@ -14,6 +14,10 @@ class User < ApplicationRecord
     %w(SuperUser Admin User)
   end
 
+  belongs_to :creator, optional: true
+
   validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'Invalid email' }
   validates :role, presence: true, inclusion: { in: self.roles }
+
+  # TODO add validation: if object is User, it must belong to a Creator
 end
