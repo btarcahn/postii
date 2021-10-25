@@ -27,11 +27,11 @@ module Postii::V1
         end
 
         if current_user.is_a?(Admin)
-          return ["creator_id = :creator_id", { creator_id: current_user.creator_id }]
+          return ["(creator_id = :creator_id)", { creator_id: current_user.creator_id }]
         end
 
         if current_user.is_a?(User)
-          return ["creator_id = :creator_id AND ( target_id = :target_id OR created_by_id = :created_by_id )",
+          return ["( creator_id = :creator_id AND ( target_id = :target_id OR created_by_id = :created_by_id ))",
             { creator_id: current_user.creator_id, target_id: current_user.id, created_by_id: current_user.id }]
         end
 
@@ -54,6 +54,15 @@ module Postii::V1
 
         false
       end
+
+      def check_sufficient_authority
+        if has_sufficient_authority?
+          present @response
+        else
+          throw(:warden, { insufficient_authority:
+                             "Your account does not have authority to see this record" })
+        end
+      end
     end
 
     before { authenticate_user! }
@@ -72,11 +81,7 @@ module Postii::V1
       end
       get '/:id' do
         @response = ElevationRequest.find(params[:id])
-        if has_sufficient_authority?
-          present @response
-        else
-          throw(:warden, { insufficient_authority: "Your account does not have authority to see this record" })
-        end
+        check_sufficient_authority
       end
 
       desc 'Creates an Elevation Request'
@@ -123,31 +128,39 @@ module Postii::V1
         exactly_one_of :id, :creator_id, :status, :created_by_id, :target_id, :answered_by_id
       end
       post '/query' do
-        authenticate_super_user!
-        # TODO not correct! Some parameters return multiple ElevationRequests
         if params[:id].present?
-          elevation_request = ElevationRequest.find(params[:id])
-          present elevation_request
+          @response = ElevationRequest.find(params[:id])
+          check_sufficient_authority
         end
         if params[:creator_id].present?
-          elevation_request = ElevationRequest.find_by_creator_id(params[:creator_id])
-          present elevation_request
+          statement, hash = generate_sql_for_index!
+          hash[:p_creator_id] = params[:creator_id]
+          @response = ElevationRequest.where(["#{statement} AND creator_id = :p_creator_id", hash])
+          present @response
         end
         if params[:status].present?
-          elevation_request = ElevationRequest.find_by_status(params[:status])
-          present elevation_request
+          statement, hash = generate_sql_for_index!
+          hash[:p_status] = params[:status]
+          @response = ElevationRequest.where(["#{statement} AND status = :p_status", hash])
+          present @response
         end
         if params[:created_by_id].present?
-          elevation_request = ElevationRequest.find_by_created_by_id(params[:created_by_id])
-          present elevation_request
+          statement, hash = generate_sql_for_index!
+          hash[:p_created_by_id] = params[:created_by_id]
+          @response = ElevationRequest.where(["#{statement} AND created_by_id = :p_created_by_id", hash])
+          present @response
         end
         if params[:target_id].present?
-          elevation_request = ElevationRequest.find_by_target_id(params[:target_id])
-          present elevation_request
+          statement, hash = generate_sql_for_index!
+          hash[:p_target_id] = params[:target_id]
+          @response = ElevationRequest.where(["#{statement} AND target_id = :p_target_id", hash])
+          present @response
         end
         if params[:answered_by_id].present?
-          elevation_request = ElevationRequest.find_by_answered_by_id(params[:answered_by_id])
-          present elevation_request
+          statement, hash = generate_sql_for_index!
+          hash[:p_answered_by_id] = params[:answered_by_id]
+          @response = ElevationRequest.where(["#{statement} AND answered_by_id = :p_answered_by_id", hash])
+          present @response
         end
       end
 
