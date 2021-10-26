@@ -10,7 +10,11 @@ module Postii::V1
 
       desc 'View Creators (public)'
       get '/' do
-        @response = Creator.all
+        if current_user.is_a? SuperUser
+          @response = Creator.all
+        else
+          @response = Creator.where.not(sector_code: 'core')
+        end
         present @response
       end
 

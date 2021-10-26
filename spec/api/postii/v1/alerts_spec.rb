@@ -38,7 +38,8 @@ describe 'Postii::V1::Alerts' do
 
     let!(:email) { "a@a.com" }
     let!(:password) { "Hello@123" }
-    let!(:user) { User.create!(email: email, password: password) }
+    let!(:creator) { Creator.create!(creator_name: 'Test Alerts Creator', email_address: email, sector_code: 'test') }
+    let!(:user) { User.create!(email: email, password: password, creator: creator) }
 
     before do
       post '/auth/login', params: { user: { email: email,password: password } }

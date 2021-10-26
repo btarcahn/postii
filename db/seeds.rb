@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 if Rails.env == 'development'
+  Rake::Task['db:core:setup'].invoke
   Rake::Task['db:seed:development'].invoke
 else
   puts "No automatic database seeding available for #{Rails.env} environment"
